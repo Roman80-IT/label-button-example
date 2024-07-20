@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Приклад використання label з кнопками</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #ddd;
+      }
+      .role-button {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #e0e0e0;
+        cursor: pointer;
+        text-align: center;
+      }
+      .role-button:hover {
+        background-color: #ccc;
+      }
+      .label-text {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Контейнер для звичайної кнопки з обробником подій -->
+    <div class="container">
+      <h2>Звичайні кнопки</h2>
+      <!-- Проста кнопка без додаткових елементів -->
+      <button id="simpleButton" type="button">Кнопка без label</button>
+    </div>
+
+    <!-- Контейнер для кнопки з `label` всередині -->
+    <div class="container">
+      <h2>Кнопка з `label` всередині</h2>
+      <!-- Текст `label` знаходиться до кнопки і користувач може натискати на текст або кнопку -->
+      <label>
+        Це кнопка з `label`
+        <button id="button1" type="button">Натисни мене</button>
+      </label>
+    </div>
+
+    <!-- Контейнер для кнопки з `label` як атрибут -->
+    <div class="container">
+      <h2>Кнопка з `label` як атрибут</h2>
+      <!-- Текст `label` знаходиться окремо від кнопки, але прив'язаний через атрибут `for` -->
+      <label for="button2">Це ваша кнопка</label>
+      <button id="button2" type="button">Натисни мене</button>
+    </div>
+
+    <!-- Контейнер для кнопки з `label` для доступності -->
+    <div class="container">
+      <h2>Кнопка з `label` для доступності</h2>
+      <!-- Кнопка з `aria-labelledby`, що вказує на `span` з текстом для екранних читалок -->
+      <button id="button3" type="button" aria-labelledby="label3">
+        Кнопка з доступністю
+      </button>
+      <!-- `span` з текстом для скринрідерів -->
+      <span id="label3" class="label-text"
+        >Ця кнопка має `label` для скринрідерів</span
+      >
+    </div>
+
+    <!-- Контейнер для кнопки з `label` і `tabindex` для фокусу -->
+    <div class="container">
+      <h2>Кнопка з `label` і `tabindex` для фокусу</h2>
+      <!-- Текст `label` має атрибут `tabindex`, що дозволяє фокусуватися на ньому -->
+      <label for="button4" tabindex="0">Це ваш натиск</label>
+      <button id="button4" type="button">Натисни мене</button>
+    </div>
+
+    <!-- Контейнер для кнопки на `div` з `role="button"` -->
+    <div class="container">
+      <h2>Кнопка на `div` з `role="button"`</h2>
+      <!-- `div` з рольовою кнопкою та `tabindex` для доступності -->
+      <div class="role-button" role="button" tabindex="0" id="roleButton">
+        Натисни мене
+      </div>
+    </div>
+
+    <script>
+      // Вибір кнопок і div з ролю кнопки за допомогою querySelector
+      const simpleButton = document.querySelector("#simpleButton");
+      const button1 = document.querySelector("#button1");
+      const button2 = document.querySelector("#button2");
+      const button3 = document.querySelector("#button3");
+      const button4 = document.querySelector("#button4");
+      const roleButton = document.querySelector("#roleButton");
+
+      // Додавання обробника подій для звичайної кнопки
+      simpleButton.addEventListener("click", () => {
+        alert("Звичайна кнопка натиснута");
+      });
+
+      // Додавання обробника подій для кнопки 1
+      button1.addEventListener("click", () => {
+        alert("Кнопка 1 натиснута");
+      });
+
+      // Додавання обробника подій для кнопки 2
+      button2.addEventListener("click", () => {
+        alert("Кнопка 2 натиснута");
+      });
+
+      // Додавання обробника подій для кнопки 3
+      button3.addEventListener("click", () => {
+        alert("Кнопка 3 натиснута");
+      });
+
+      // Додавання обробника подій для кнопки 4
+      button4.addEventListener("click", () => {
+        alert("Кнопка 4 натиснута");
+      });
+
+      // Додавання обробника подій для div з ролю кнопки
+      roleButton.addEventListener("click", () => {
+        alert("Кнопка на div натиснута");
+      });
+
+      // Додавання обробки подій для клавіатури для `role="button"`
+      roleButton.addEventListener("keydown", (event) => {
+        // Перевірка натискання клавіші Enter або пробіл для активації кнопки
+        if (event.key === "Enter" || event.key === " ") {
+          roleButton.click();
+        }
+      });
+
+      // Додавання обробника подій для `label` з `tabindex`
+      document
+        .querySelector("label[tabindex]")
+        .addEventListener("click", () => {
+          // Сумісно з `for="button4"`, який при натисканні на label активує відповідну кнопку
+          button4.click();
+        });
+    </script>
+  </body>
+</html>
